@@ -18,7 +18,7 @@ async function getTodoList() {
 }
 
 
-const upadateTodoUI = async () => {
+const updateTodoUI = async () => {
   const data = await getTodoList();
   console.log(data, "data");
   data.forEach((item) => {
@@ -27,6 +27,24 @@ const upadateTodoUI = async () => {
   });
 };
 
-upadateTodoUI();
+async function addToTodoList(title, desc) {
+  try {
+    const contract = getContract(true);
+    const response = await contract.createTodo(title, desc);
+  return response;
+  } catch (error) {
+    console.log("Error", error);
+  }
+  
+}
+
+updateTodoUI();
 
 // add new list
+
+addTodo.addEventListener("click", async function(e) {
+  e.preventDefault();
+await addToTodoList(title1.value, desc1.value);
+});
+
+// sendTransaction.innerText = "Sending";
